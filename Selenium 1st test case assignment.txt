@@ -1,0 +1,91 @@
+Assignment-1
+===========
+package Test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class SeleniumTest {
+
+	public static void main(String[] args) throws InterruptedException {
+		//1. Launch the chrome browser
+		WebDriverManager.chromedriver().setup();
+		
+   WebDriver driver = new ChromeDriver();
+  // 2. Open "https://www.google.com"
+  driver. navigate().to("http://www.google.com");
+ // 3. Enter "Selenium WebDriver" in google edit/search box
+  driver.findElement(By.name("q")).sendKeys("Selenium WebDriver");
+ // 4. Click on search button
+  driver.findElement(By.name("btnK")).click();
+ //  5. Click on "Selenium Webdriver Tutorial with Examples | BrowserStack" link of current web page
+   driver.findElement(By.xpath("//h3[contains(text(),'Selenium Webdriver Tutorial with Examples')]")).click();
+ //  6. Navagate back to previous page
+   driver.navigate().back ();
+ //  7. Refresh the current page
+   driver.navigate().refresh();
+   //8. Forward to the next page
+   driver.navigate().forward();
+ // 9. Refresh the current page
+   driver.navigate().refresh();
+  // 10. Maximize the browser
+   driver.manage().window().maximize();
+  // 11. Get Title of page
+   System.out.println(driver.getTitle());
+  // 12. Get url of the page
+   System.out.println(driver.getCurrentUrl());
+ //  13. Navigate to previous page
+   driver.navigate().back();
+ //  14. Get the title of the page
+   System.out.println(driver.getTitle());
+ //  15. Get window id of the page
+   System.out.println(driver.getWindowHandle());
+ //  16. Close the browser session
+   driver.quit();
+	}
+
+}
+
+Assignment:
+==========
+package Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class SeleniumFacebook {
+
+	public static void main(String[] args) throws InterruptedException {
+		// Open chrome browser
+		WebDriverManager.chromedriver().setup();
+		
+		WebDriver driver =new ChromeDriver();
+		// Open facebook url "https://www.facebook.com/"
+		driver.navigate().to("https://www.facebook.com/");
+		//Maximize browser window
+		driver.manage().window().maximize();
+		//Click on Create New Account button
+        driver.findElement(By.xpath("//form[@class='_9vtf']/div[5]")).click();
+        Thread.sleep(10000);
+        //enter first name in firstName Edit box
+        driver.findElement(By.xpath("//input[contains(@name,'firstname')]")).sendKeys("As chinnabba");
+        //enter surname in surname edit box
+        driver.findElement(By.name("lastname")).sendKeys("Daring star");
+        //enter mobile name in Mobile Number or email address edit box
+        driver.findElement(By.name("reg_email__")).sendKeys("9000182193");
+        //enter password in New password edit field
+        driver.findElement(By.name("reg_passwd__")).sendKeys("as&chinna");
+        //click on male gender option in Gender selection
+        driver.findElement(By.className("_58mt")).click();
+        //Get title and print
+        System.out.println(driver.getTitle());
+        // Get url of the web page and print
+        System.out.println(driver.getCurrentUrl());
+       // Get window id and print
+        System.out.println(driver.getWindowHandle());
+      //  Close the browser.
+        driver.quit();
+	}
