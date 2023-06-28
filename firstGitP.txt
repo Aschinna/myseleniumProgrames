@@ -1,0 +1,84 @@
+package testSelenium;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+
+public class ParametersAnnotation {
+	WebDriver driver;
+	@Parameters({"browse"})
+	@BeforeMethod
+	public void beforeMethod(String browse ) {
+		switch(browse.toLowerCase()) {
+		case "chrome":
+			driver = new ChromeDriver();
+			break;
+		case "firefox":
+			driver = new FirefoxDriver();
+			break;
+		default:
+
+			System.out.println("Enter valid Browser Name");
+			break;
+		}
+		driver.manage().window().maximize();
+	}
+//	@AfterMethod
+//	public void afterMethod() {
+//		driver.quit();
+//	}
+//    
+	@Parameters({"wordSearch","GoogleUrl" ,"browse"})
+	@Test
+	public void wordsearchG(String wordSearch ,String GoogleUrl ,String browse) throws InterruptedException
+	{
+		driver.get(GoogleUrl);
+		driver.findElements(By.name("q")).clear();
+		driver.findElement(By.name("q")) .sendKeys(wordSearch);
+		Thread.sleep(10000);
+		List<WebElement> w = driver.findElements(By.xpath("//div[@id='Alh6id']/div[1]/div/ul"));
+		for(WebElement s:w)
+		{
+			System.out.println(s.getText());
+		}
+	}
+
+	@Parameters({"phonumer","password","facebookUrl" ,"browse"})
+	@Test
+	public void login(String phonumer , String password,String facebookUrl, String browse) throws InterruptedException
+	{
+		driver.get(facebookUrl);
+
+		driver.findElement(By.xpath("//input[@id='email']")).clear();
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys(phonumer);
+		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys(password);
+		driver.findElement(By.xpath("//button[@name='login']")).click();
+		Thread.sleep(20000);
+		String name =  driver.findElement(By.xpath("//div[@class='x9f619 x1n2onr6 x1ja2u2z x78zum5 xdt5ytf xedcshv x1t2pt76']/div[1]/div[1]/div/div/div/ul")).getText();
+		System.out.println(name);
+		Assert.assertEquals( name,"Daring Stra Chinnaas" );
+		System.out.println("faceboock logined successfully");
+
+
+	}
+
+	@AfterMethod
+	public void afterMethod() {
+		driver.quit();
+	}
+
+
+
+}
+
+
